@@ -37,11 +37,19 @@ function getWorkingHours()
 	esac
 	echo $empHrs
 }
+function calcDailyWage()
+{
+	local workHrs=$1
+	wage=$(($workHrs*$EMP_RATE_PER_HR))
+	echo $wage
+}
 #Calculating wages till number of working days or days its reach for a month
 while [[ $totalWorkingDays -lt $MAX_WORKING_DAYS && $totalEmpHrs -lt $MAX_WORKING_HR ]]
 do
 	((totalWorkingDays++))
 	empHrs="$( getWorkingHours $((RANDOM%3)) )"
 	totalEmpHrs=$(($totalEmpHrs+$empHrs))
+	empDailyWage[$totalWorkingDays]="$( calcDailyWage $empHrs)"
 done
-totalSalary=$(($totalEmpHrs*$EMP_RATE_PER_HR))
+totalSalary="$( calcDailyWage $totalEmpHrs )"
+echo "Daily Wage "${empDailyWage[@]}
