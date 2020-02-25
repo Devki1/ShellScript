@@ -33,14 +33,14 @@ fi
 salary=$(($empPerhour*$empHrs))
 #Add parttime and fulltime employee wage by using case statement
 case $randomCheck in
-			$partTime)
-						empHrs=4
-						;;
-			$fullTime)
-						empHrs=8
-						;;
-						*)
-						empHrs=0
-						;;
+		$partTime)
+			empHrs=4
+				;;
+		$fullTime)
+			empHrs=8
+				;;
+		*)
+			empHrs=0
+				;;
 esac
 salary=$(($empPerHour*$empHrs))
