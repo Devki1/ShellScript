@@ -20,17 +20,6 @@ if(($isPresent == $randomCheck))
 	else
 		salary=0
 fi
-#Add part time employee and wage
-if(($partTime == $randomCheck))
-	then
-		empHrs=4
-	elif(($fullTime == $randomCheck))
-	then
-		empHrs=8
-	else
-		empHrs=0
-fi
-salary=$(($empPerhour*$empHrs))
 #Add parttime and fulltime employee wage by using case statement
 case $randomCheck in
 		$partTime)
@@ -44,3 +33,21 @@ case $randomCheck in
 				;;
 esac
 salary=$(($empPerHour*$empHrs))
+#Calculating wage for a month 
+for(( day=1;day<=$empPerHour;day++))
+do
+	randomCheck=$((RANDOM%3))
+	case $randomCheck in
+		$fullTime)
+			empHrs=8
+			;;
+		$partTime)
+			empHrs=4
+			;;
+		*)
+			empHrs=0
+			;;
+esac
+salary=$(($empHrs*$empPerHour))
+totalSalary=$(($totalSalary+$salary));
+done
