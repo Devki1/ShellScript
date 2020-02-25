@@ -9,3 +9,12 @@ if(($isPresent == $randomcheck))
 	else
 		echo "Employee is absent"
 fi
+#Calculate daily employee wage
+if(($isPresent == $randomcheck))
+	then
+		empperhour=20
+		empdayhour=8
+		salary=$(($empperhour*$empdayhour))
+	else
+		salary=0
+fi
