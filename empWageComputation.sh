@@ -1,53 +1,62 @@
 #!/bin/bash -x
 echo "Welcome to employee wages problem"
-isPresent=1
-partTime=1
-fullTime=2
-empPerHour=20
+IS_PRESENT=1
+IS_PART_TIME=1
+IS_FULL_TIME=2
+EMP_RATE_PER_HR=20
+MAX_WORKING_DAYS=20
+MAX_WORKING_HR=100
+#variable
+totalSalary=0
+totalEmpHrs=0
+totaWorkingDays=0
+salary=0
+workHrs=0
 randomCheck=$((RANDOM%3))
 #To check the employee is present or not
-if(($isPresent == $randomCheck))
+if(($IS_PRESENT == $randomCheck))
 	then
 		echo "Employee is present"
 	else
 		echo "Employee is absent"
 fi
 #Calculate daily employee wage
-if(($isPresent == $randomCheck))
+if(($IS_PRESENT == $randomCheck))
 	then
-		empdayhour=8
-		salary=$(($empPerhour*$empdayhour))
+		empHrs=8
+		salary=$(($EMP_RATE_PER_HR*$empHrs))
 	else
 		salary=0
 fi
 #Add parttime and fulltime employee wage by using case statement
 case $randomCheck in
-		$partTime)
+		$IS_PART_TIME)
 			empHrs=4
 				;;
-		$fullTime)
+		$IS_FULL_TIME)
 			empHrs=8
 				;;
 		*)
 			empHrs=0
 				;;
 esac
-salary=$(($empPerHour*$empHrs))
-#Calculating wage for a month 
-for(( day=1;day<=$empPerHour;day++))
+salary=$(($EMP_RATE_PER_HR*$empHrs))
+#Calculating wages till number of working days or days its reach for a month
+while [[ $totalWorkingDays -lt $MAX_WORKING_DAYS && $totalEmpHrs -lt $MAX_WORKING_HR ]]
 do
+	((totalWorkingDays++))
 	randomCheck=$((RANDOM%3))
 	case $randomCheck in
-		$fullTime)
+		$IS_FULL_TIME)
 			empHrs=8
 			;;
-		$partTime)
+		$IS_PART_TIME)
 			empHrs=4
 			;;
 		*)
 			empHrs=0
 			;;
-esac
-salary=$(($empHrs*$empPerHour))
-totalSalary=$(($totalSalary+$salary));
+	esac
+	totalEmpHrs=$(($totalEmpHrs+$empHrs))
 done
+totalSalary=$(($totalEmpHrs*$EMP_RATE_PER_HR))
